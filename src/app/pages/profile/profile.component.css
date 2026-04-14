@@ -1,0 +1,172 @@
+body {
+  background: #f1f3f6;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+/* MAIN LAYOUT */
+.profile-container {
+  max-width: 1200px;
+  margin: auto;   /* 👈 center me layega */
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* LEFT SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* HELLO BOX */
+.sidebar h3 {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}
+
+/* MENU */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #212121;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background: #f5f5f5;
+}
+
+.sidebar li.active {
+  background: #e8f0fe;
+  color: #2874f0;
+  font-weight: 500;
+}
+
+/* RIGHT CONTENT */
+.content {
+  width: 75%;
+  flex: 1;   /* 👈 important */
+  background: #fff;
+  padding: 30px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* HEADINGS */
+.content h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.content h3 {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: #878787;
+}
+
+/* INPUT STYLE (Flipkart type) */
+input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+  font-size: 14px;
+  outline: none;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+input:focus {
+  border-bottom: 2px solid #2874f0;
+}
+
+/* FORM GROUP */
+.form-group {
+  display: flex;
+  gap: 20px;
+}
+
+/* RADIO */
+label {
+  display: block;
+  font-size: 14px;
+  color: #878787;
+  margin-bottom: 5px;
+}
+
+/* BUTTON */
+.save-btn {
+  margin-top: 20px;
+  background: #fb641b;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 0;
+}
+
+/* EDIT LINK */
+.edit {
+  color: #2874f0;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar,
+  .content {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .form-group {
+    flex-direction: column;
+  }
+}
+
+.form-row {
+  margin: 15px 0;
+}
+
+.gender-group {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 5px;
+}
+
+.gender-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.form-group {
+  display: flex;
+  gap: 30px;
+}
+
+.form-group input {
+  width: 300px;
+}

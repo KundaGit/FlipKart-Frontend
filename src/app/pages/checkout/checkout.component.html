@@ -1,0 +1,152 @@
+<div class="checkout-container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+
+    <!-- 🏠 ADDRESS -->
+  <div class="box">
+  <h3>Delivery Address</h3>
+
+  <div *ngFor="let addr of addresses" class="address-option">
+
+    <div class="addr-card" [class.active]="selectedAddress?.id === addr.id">
+
+      <!-- NAME -->
+      <div class="addr-top">
+        <b>📍 {{ addr.name }}</b> ({{ addr.mobile }})
+
+        <span *ngIf="addr.isDefault" class="default-badge">Default</span>
+      </div>
+
+      <!-- ADDRESS -->
+      <p>
+        {{ addr.address }}, {{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}
+      </p>
+
+      <!-- ACTIONS -->
+      <div class="addr-actions">
+
+        <!-- 🚀 SELECT -->
+        <button 
+          class="deliver-btn"
+          (click)="selectAddress(addr)">
+          Deliver Here
+        </button>
+
+        <!-- ✏️ EDIT -->
+        <button 
+          class="edit-btn"
+          (click)="goToEdit(addr)">
+          ✏️
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ➕ ADD -->
+  <button class="add-new" (click)="goToAdd()">
+    + Add New Address
+  </button>
+
+</div>
+  
+
+    <!-- 📦 PRODUCT DETAIL (SAME STYLE 🔥) -->
+    <div class="box" *ngFor="let item of items">
+
+      <div class="detail-container">
+
+        <!-- IMAGE -->
+        <div class="left-img">
+          <img [src]="item.image" />
+        </div>
+
+        <!-- DETAILS -->
+        <div class="right-details">
+
+          <h2>{{item.name}}</h2>
+
+          <p class="rating">
+            ⭐ {{item.rating}} ({{item.reviews}} reviews)
+          </p>
+
+          <p class="price">
+            ₹ {{item.price}}
+            <span class="old-price">₹ {{item.originalPrice}}</span>
+            <span class="discount">{{item.discount}}</span>
+          </p>
+
+          <p><b>Brand:</b> {{item.brand}}</p>
+          <p><b>Category:</b> {{item.category}}</p>
+
+          <p>Qty: {{item.qty}}</p>
+
+          <ul>
+            <li *ngFor="let f of item.features">{{f}}</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 💳 PAYMENT -->
+  <div class="box">
+  <h3>Payment Method</h3>
+
+  <label>
+    <input type="radio" name="payment" [(ngModel)]="form.payment" value="COD">
+    Cash on Delivery
+  </label>
+
+  <label>
+    <input type="radio" name="payment" [(ngModel)]="form.payment"  [value]="'ONLINE'"
+  checked>
+    Online Payment
+  </label>
+</div>
+
+  </div>
+
+  <!-- RIGHT SIDE (PRICE DETAILS) -->
+  <div class="right">
+
+  <h3>Price Details</h3>
+
+  <div class="price-row">
+    <span>MRP</span>
+    <span>₹ {{getMRP()}}</span>
+  </div>
+
+  <div class="price-row">
+    <span>Discount</span>
+    <span>-₹ {{getDiscount()}}</span>
+  </div>
+
+  <div class="price-row">
+    <span>Delivery</span>
+    <span>FREE</span>
+  </div>
+
+  <p class="save">
+    You saved ₹ {{getDiscount()}} 🎉
+  </p>
+
+  <hr>
+
+  <div class="price-row total">
+    <span>Total</span>
+    <span>₹ {{getTotal()}}</span>
+  </div>
+
+  <!-- <button (click)="placeOrder()">Continue 🚀</button> -->
+<button (click)="onContinue()">
+  Continue 🚀
+</button>
+</div>
+
+</div>

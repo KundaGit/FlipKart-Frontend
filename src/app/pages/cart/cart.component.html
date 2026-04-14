@@ -1,0 +1,43 @@
+<div *ngIf="items.length === 0" class="empty-cart">
+  <h2>My Cart 🛒</h2>
+
+  <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="empty">
+
+  <h3>Your cart is empty!</h3>
+  <p>Add items to it now</p>
+
+  <button routerLink="/">Shop Now</button>
+</div>
+
+<!-- ✅ CART ITEMS -->
+<div *ngIf="items.length > 0">
+
+  <div *ngFor="let item of items; let i = index" class="cart-item">
+
+    <img [src]="item.image" width="100" />
+
+    <div>
+      <p>{{item.name}}</p>
+      <p>₹ {{item.price}}</p>
+
+      <div>
+        <button class="qty-btn" (click)="decreaseQty(i)">-</button>
+        <span>{{item.qty}}</span>
+        <button class="qty-btn" (click)="increaseQty(i)">+</button>
+      </div>
+
+      <button class="remove-btn" (click)="removeItem(i)">
+        🗑 Remove
+      </button>
+    </div>
+
+  </div>
+
+  <!-- 💰 TOTAL + CHECKOUT -->
+  <h3>Total: ₹ {{getTotal()}}</h3>
+
+  <button routerLink="/checkout" class="checkout-btn">
+    Proceed to Checkout 💳
+  </button>
+
+</div> 

@@ -1,0 +1,118 @@
+<div class="container">
+
+  <h2 class="title">📦 My Orders</h2>
+
+  <div class="order-card" *ngFor="let order of orders">
+
+    <!-- 🔝 HEADER -->
+    <div class="order-header">
+
+      <div class="left">
+        <p><b>Order ID:</b> {{order.id}}</p>
+        <p><b>Payment ID:</b> {{order.paymentId}}</p>
+      </div>
+
+      <div class="right">
+        <p class="amount">Total Amount: ₹ {{order.amount}}</p>
+        <p class="date">
+         Order Date: {{order.createdAt | date:'dd MMM yyyy, hh:mm a'}}
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 📦 ITEMS -->
+    <div class="items">
+
+      <div *ngFor="let item of order.items" class="item">
+
+        <img [src]="item.image" />
+
+        <div class="details">
+          <h4>{{item.name}}</h4>
+          <p>Qty: {{item.qty}}</p>
+          <p>₹ {{item.price}}</p>
+        </div>
+
+      </div>
+
+    </div>
+     <!-- 🔥 BUTTON YAHAN DAALO -->
+  <div class="invoice-btn">
+    <button (click)="downloadInvoice(order)">
+      📄 Download Invoice
+    </button>
+    
+  </div>
+
+<div id="invoice-{{order.id}}" class="invoice hidden-invoice">
+
+  <!-- 🔥 HEADER -->
+  <div class="invoice-header">
+    <div class="logo">
+      🛍️ Flipkart Clone
+    </div>
+    <div class="company">
+      <p><b>Kundan Pvt Ltd</b></p>
+      <p>India</p>
+      <p>GST: 22ABCDE1234F1Z5</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 🔥 ORDER INFO -->
+  <div class="invoice-info">
+    <div>
+      <p><b>Order ID:</b> {{order.id}}</p>
+      <p><b>Payment ID:</b> {{order.paymentId}}</p>
+    </div>
+
+    <div class="right">
+      <p><b>Date:</b> {{order.createdAt | date:'dd MMM yyyy'}}</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 🔥 TABLE -->
+  <table class="invoice-table">
+
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of order.items">
+        <td>{{item.name}}</td>
+        <td>{{item.qty}}</td>
+        <td>₹ {{item.price}}</td>
+        <td>₹ {{item.price * item.qty}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <hr>
+
+  <!-- 🔥 TOTAL -->
+  <div class="total-section">
+    <h2>Total: ₹ {{order.amount}}</h2>
+  </div>
+
+  <!-- 🔥 FOOTER -->
+  <div class="footer">
+    <p>Thank you for shopping with us ❤️</p>
+  </div>
+
+</div>
+  </div>
+  
+
+</div>
+

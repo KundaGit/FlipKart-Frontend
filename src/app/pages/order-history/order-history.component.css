@@ -1,0 +1,271 @@
+/* 🔥 CONTAINER */
+.container {
+  padding: 20px;
+  background: #f1f3f6;
+  min-height: 100vh;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* 🔥 CARD */
+.order-card {
+  background: white;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.order-card:hover {
+  transform: scale(1.01);
+}
+
+/* 🔝 HEADER */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.order-header .left p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.order-header .right {
+  text-align: right;
+}
+
+.amount {
+  font-size: 18px;
+  font-weight: bold;
+  color: #388e3c;
+}
+
+.date {
+  font-size: 12px;
+  color: gray;
+}
+
+/* 📦 ITEMS */
+.items {
+  margin-top: 12px;
+}
+
+.item {
+  display: flex;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item img {
+  width: 80px;
+  object-fit: contain;
+}
+
+.details {
+  flex: 1;
+}
+
+.details h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.details p {
+  margin: 3px 0;
+  color: gray;
+}
+
+/* ================================= */
+/* 💻 DESKTOP */
+/* ================================= */
+
+@media (min-width: 769px) {
+
+  .container {
+    max-width: 900px;
+    margin: auto;
+  }
+
+}
+
+/* ================================= */
+/* 📱 MOBILE */
+/* ================================= */
+
+@media (max-width: 768px) {
+
+  .container {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .order-card {
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  /* HEADER STACK */
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .order-header .right {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .amount {
+    font-size: 15px;
+  }
+
+  .date {
+    font-size: 11px;
+  }
+
+  /* ITEM MOBILE */
+  .item {
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .item img {
+    width: 60px;
+  }
+
+  .details h4 {
+    font-size: 14px;
+  }
+
+  .details p {
+    font-size: 12px;
+  }
+
+}
+
+.invoice {
+  padding: 20px;
+  font-family: Arial;
+}
+
+.invoice h2 {
+  text-align: center;
+}
+
+.invoice hr {
+  margin: 10px 0;
+}
+.invoice-btn {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.invoice-btn button {
+  padding: 8px 14px;
+  background: #2874f0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.invoice-btn button:hover {
+  background: #1c5ed6;
+}
+
+.hidden-invoice {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  opacity: 1;   /* 🔥 important */
+}
+
+
+.invoice {
+  padding: 20px;
+  font-family: Arial;
+  width: 600px;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+/* HEADER */
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2874f0;
+}
+
+.company p {
+  margin: 0;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* INFO */
+.invoice-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+/* TABLE */
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.invoice-table th {
+  background: #f5f5f5;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.invoice-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* TOTAL */
+.total-section {
+  text-align: right;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: gray;
+}
+

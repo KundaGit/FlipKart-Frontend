@@ -1,0 +1,234 @@
+.checkout-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #f1f3f6;
+}
+
+/* LEFT */
+.left {
+  flex: 2;
+}
+
+.box {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+/* PRODUCT DETAIL */
+.detail-container {
+  display: flex;
+  gap: 20px;
+}
+
+.left-img img {
+  width: 150px;
+}
+
+.right-details {
+  flex: 1;
+}
+
+.price {
+  color: green;
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+  margin-left: 10px;
+}
+
+.discount {
+  color: green;
+  margin-left: 10px;
+}
+
+/* RIGHT */
+.right {
+  flex: 1;
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  height: fit-content;
+}
+
+.right button {
+  width: 100%;
+  padding: 12px;
+  background: #fb641b;
+  color: white;
+  border: none;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .checkout-container {
+    flex-direction: column;
+  }
+
+  .detail-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between; /* 🔥 yahi magic hai */
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.save {
+  color: green;
+  margin-top: 10px;
+}
+/* 🔵 Desktop (Laptop) */
+@media (min-width: 769px) {
+  .right {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .right {
+    position: static;  /* ❌ sticky disable */
+  }
+}
+
+/* address ui */
+
+/* ADDRESS WRAPPER */
+.address-option {
+  margin-bottom: 12px;
+  position: relative;
+}
+
+/* HIDE RADIO BUTTON */
+.address-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* ADDRESS CARD */
+.addr-card {
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: block;
+}
+
+/* HOVER EFFECT */
+.addr-card:hover {
+  border-color: #2874f0;
+  background: #f1f7ff;
+  transform: translateY(-2px);
+}
+
+/* SELECTED STATE */
+.address-option input[type="radio"]:checked + .addr-card {
+  border: 2px solid #2874f0;
+  background: #eaf3ff;
+  box-shadow: 0 4px 10px rgba(40, 116, 240, 0.2);
+}
+
+/* OPTIONAL: TEXT STYLE */
+.addr-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.addr-card strong {
+  font-size: 15px;
+}
+
+/* ADDRESS CARD */
+.addr-card {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 8px;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* HOVER */
+.addr-card:hover {
+  border-color: #2874f0;
+  background: #f5faff;
+}
+
+/* ACTIVE SELECTED 🔥 */
+.addr-card.active {
+  border: 2px solid #2874f0;
+  background: #eaf3ff;
+  box-shadow: 0 0 0 2px rgba(40,116,240,0.2),
+              0 8px 20px rgba(40,116,240,0.25);
+}
+
+/* DEFAULT BADGE */
+.default-badge {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+/* Redirect for address */
+.addr-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* 🚀 BUTTON */
+.deliver-btn {
+  background: linear-gradient(135deg, #ff7a18, #ff3d00);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.deliver-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+}
+
+/* EDIT */
+.edit-btn {
+  background: #e3f2fd;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ACTIVE CARD */
+.addr-card.active {
+  border: 2px solid #2874f0;
+  box-shadow: 0 0 0 2px rgba(40,116,240,0.2);
+}

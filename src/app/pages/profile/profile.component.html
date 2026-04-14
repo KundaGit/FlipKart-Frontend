@@ -1,0 +1,43 @@
+<div class="profile-container">
+  <!-- LEFT MENU -->
+  <div class="sidebar">
+    <h3 ><i class="fas fa-user"></i> Hello 👋{{profile.firstName}} {{profile.lastName }}</h3>
+
+    <ul>
+      <li class="active">Profile Information</li>
+      <li routerLink="/orders">My Orders</li>
+      <li routerLink="/address">Addresses</li>
+      <li>Payments</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT CONTENT -->
+  <div class="content">
+
+    <h2>Personal Information</h2>
+
+    <div class="form-group">
+      <input type="text" placeholder="First Name" [(ngModel)]="profile.firstName">
+      <input type="text" placeholder="Last Name" [(ngModel)]="profile.lastName">
+    </div>
+
+   <div class="form-row">
+  <label>Gender</label>
+
+  <div class="gender-group">
+    <label><input type="radio" name="gender" [(ngModel)]="profile.gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" [(ngModel)]="profile.gender" value="Female"> Female</label>
+  </div>
+</div>
+
+    <h3>Email Address</h3>
+    <input type="email" placeholder="Enter email" [(ngModel)]="profile.email">
+
+    <h3>Mobile Number</h3>
+    <input type="text" placeholder="Enter mobile" [(ngModel)]="profile.mobile">
+
+    <button class="save-btn" (click)="saveProfile()">Save</button>
+
+  </div>
+
+</div>

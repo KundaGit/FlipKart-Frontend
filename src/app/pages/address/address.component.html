@@ -1,0 +1,43 @@
+<h2>My Addresses</h2>
+
+<!-- ADD FORM -->
+<div class="address-form">
+<input [(ngModel)]="newAddress.name" placeholder="Full Name">
+  <input [(ngModel)]="newAddress.mobile" placeholder="Mobile">
+  <input [(ngModel)]="newAddress.pincode" placeholder="Pincode">
+  <input [(ngModel)]="newAddress.city" placeholder="City">
+  <input [(ngModel)]="newAddress.state" placeholder="State">
+  <input [(ngModel)]="newAddress.address" placeholder="Full Address">
+
+   <!-- 👇 Button change -->
+  <button (click)="saveAddress()">
+    {{ editMode ? 'Update Address' : 'Add Address' }}
+  </button>
+</div>
+
+<!-- LIST -->
+<div class="address-list">
+  <!-- <div *ngFor="let a of addresses" class="address-card">
+    <h4>{{ a.name }} ({{ a.mobile }})</h4>
+    <p>{{ a.address }}, {{ a.city }}, {{ a.state }} - {{ a.pincode }}</p>
+       <button (click)="editAddress(a)">Edit</button>
+    <button (click)="deleteAddress(a.id)">Delete</button>
+  </div> -->
+
+  <div *ngFor="let a of addresses" class="address-card" [class.default]="a.isDefault">
+
+  <h4>
+    📍 {{ a.name }} ({{ a.mobile }})
+    <span *ngIf="a.isDefault" class="default-badge">Default</span>
+  </h4>
+
+  <p>{{ a.address }}, {{ a.city }}, {{ a.state }} - {{ a.pincode }}</p>
+
+  <div class="actions">
+    <button (click)="editAddress(a)">✏️ Edit</button>
+    <button (click)="deleteAddress(a.id)">🗑️ Delete</button>
+  </div>
+  <button (click)="setDefaultAddress(a)">⭐ Set Default</button>
+
+</div>
+</div>

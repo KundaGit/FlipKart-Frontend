@@ -1,0 +1,63 @@
+<!-- <div class="categories">
+  <div>Mobiles</div>
+  <div>Fashion</div>
+  <div>Electronics</div>
+  <div>Home</div>
+  <div>Appliances</div>
+</div> -->
+<div class="toast" *ngIf="message">
+  <span class="check">✔</span>
+  {{message}}
+</div>
+
+<div class="categories">
+   <!-- 🔥 ALL button sabse pehle -->
+  <div class="cat-item" (click)="filterByCategory('')" [class.active]="selectedCategory===''">
+    <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png"><p>All</p>
+  </div>
+  <div class="cat-item" *ngFor="let c of categories" (click)="filterByCategory(c.name)" [class.active]="selectedCategory===c.name">
+    <img [src]="c.image" alt="">
+    <p>{{c.name}}</p>
+  </div>
+</div>
+
+<div class="banner">
+  <div class="slider">
+
+    <div 
+      class="slide"
+      *ngFor="let b of banners; let i = index"
+      [class.active]="i === currentIndex"
+    >
+      <img [src]="b.image" />
+
+      <div class="content">
+        <h2>{{b.title}}</h2>
+        <p>{{b.subtitle}}</p>
+        <button>Shop Now</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="container">
+<div *ngIf="getFilteredProducts().length === 0" class="no-data">
+  <img src="https://cdn-icons-png.flaticon.com/512/7486/7486740.png" />
+  <h3>No products found 😢</h3>
+  <p>Try searching something else</p>
+</div>
+<div class="grid">
+  <div class="card" *ngFor="let p of getFilteredProducts()" (click)="goToDetail(p.id)">
+    <img [src]="p.image" alt="">
+    
+    <h3>{{p.name}}</h3>
+    
+    <p>₹ {{p.price}}</p>
+    
+    <button (click)="addToCart(p); $event.stopPropagation()">
+      Add to Cart 🛒
+    </button>
+
+  </div>
+</div>
+</div>

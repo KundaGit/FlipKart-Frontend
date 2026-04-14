@@ -1,0 +1,84 @@
+<div *ngIf="product" class="detail-container">
+
+  <div class="left">
+
+  <div class="img-container"
+       (mousemove)="onMouseMove($event)"
+       (mouseleave)="onMouseLeave()">
+
+    <img [src]="product.image" />
+
+    <!-- 🔥 zoom lens -->
+    <div class="lens" [ngStyle]="lensStyle"></div>
+  </div>
+
+</div>
+
+<!-- 🔥 RIGHT SIDE ZOOM PREVIEW -->
+<div class="zoom-preview" *ngIf="zoomImage"
+     [style.backgroundImage]="'url(' + product.image + ')'"
+     [style.backgroundPosition]="zoomImage">
+</div>
+
+  <!-- RIGHT SIDE DETAILS -->
+  <div class="right">
+
+    <h2>{{product.name}}</h2>
+
+    <p class="rating">
+      ⭐ {{product.rating}} ({{product.reviews}} reviews)
+    </p>
+
+    <p class="price">
+      ₹ {{product.price}}
+      <span class="old-price">₹ {{product.originalPrice}}</span>
+      <span class="discount">{{product.discount}}</span>
+    </p>
+
+    <p><b>Brand:</b> {{product.brand}}</p>
+    <p><b>Category:</b> {{product.category}}</p>
+
+    <p class="desc">{{product.description}}</p>
+
+    <ul>
+      <li *ngFor="let f of product.features">{{f}}</li>
+    </ul>
+
+    <button (click)="addToCart(product)">Add to Cart 🛒</button>
+    <button class="buy-btn" (click)="buyNow(product)">Buy Now ⚡</button>
+
+  </div>
+
+</div>
+
+<!-- 🔥🔥 YE YAHAN DAALO (OUTSIDE MAIN DIV) -->
+<div class="cart-popup" *ngIf="showCartPopup">
+
+  <div class="popup-header">
+  <span>✅ Item added to cart</span>
+  <span class="close-btn" (click)="showCartPopup = false">
+   <i class="fa-solid fa-circle-xmark"></i>
+  </span>
+</div>
+
+  <div class="popup-body">
+    <img [src]="popupProduct?.image" />
+    <div>
+      <h4>{{popupProduct?.name}}</h4>
+      <p>₹ {{popupProduct?.price}}</p>
+    </div>
+  </div>
+<div class="suggestions">
+  <h4>You may also like</h4>
+
+  <div class="suggest-item" *ngFor="let item of getSuggestedProducts()">
+    <img [src]="item.image">
+    <div>
+      <p>{{item.name}}</p>
+      <span>₹ {{item.price}}</span>
+    </div>
+  </div>
+</div> 
+  <button (click)="goToCart()">GO TO CART</button>
+
+</div>

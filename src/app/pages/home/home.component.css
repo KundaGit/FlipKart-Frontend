@@ -1,0 +1,316 @@
+.container {
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+   padding: 20px;
+   cursor: pointer;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+}
+
+.card h3 {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.card p {
+  color: #333;
+  font-weight: bold;
+}
+
+img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+button {
+  background: #2874f0;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.banner img {
+  width: 100%;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 40px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.no-data img {
+  width: 120px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.no-data h3 {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.no-data p {
+  color: #777;
+  font-size: 14px;
+}
+.no-data {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* image styles */
+.categories {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  cursor: pointer;
+  position: sticky;
+  top: 80px; /* 👈 navbar height ke hisab se adjust kar */
+  z-index: 999;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cat-item {
+  width: 20%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.cat-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+.cat-item p {
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+.cat-item:hover {
+  transform: scale(1.1);
+  color: red;
+}
+
+.cat-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 20%;
+}
+
+.cat-item.active {
+  color: red;
+  transform: scale(1.1);
+}
+
+.cat-item.active p {
+  color: red;
+  font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+
+  .categories {
+    overflow-x: auto;
+    flex-wrap: nowrap; /* ek line me scroll */
+  }
+
+  .cat-item {
+    min-width: 80px;
+  }
+
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.cat-item:first-child {
+  font-weight: bold;
+  color: #2874f0;
+}
+
+/* banner */
+.banner {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider {
+  position: relative;
+  height: 260px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 🔥 TEXT OVERLAY */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50px;
+  transform: translateY(-50%);
+  color: white;
+}
+
+.content h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.content button {
+  background: #ff3f6c;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 🔥 overlay dark effect */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+}
+
+/* 📱 mobile responsive */
+@media (max-width: 768px) {
+  .slider {
+    height: 160px;
+  }
+
+  .content {
+    left: 15px;
+  }
+
+  .content h2 {
+    font-size: 18px;
+  }
+
+  .content p {
+    font-size: 12px;
+  }
+}
+
+.slider img.active {
+  opacity: 1;
+}
+
+
+/* Add cart toast */
+.toast {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: #fff;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideIn 0.3s ease;
+}
+
+.check {
+  background: green;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

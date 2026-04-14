@@ -1,0 +1,39 @@
+<div class="login-container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <h2>Login</h2>
+    <p>Get access to your Orders,<br>Wishlist and Recommendations</p>
+
+    <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-757.jpg" />
+  </div>
+
+  <!-- RIGHT SIDE -->
+  
+<div class="right">
+
+  <h2>{{ isLogin ? 'Login' : 'Create Account' }}</h2>
+
+  <!-- REGISTER ONLY -->
+  <input *ngIf="!isLogin" [(ngModel)]="name" placeholder="Full Name" />
+
+  <input [(ngModel)]="email" placeholder="Email Address" />
+
+  <input [(ngModel)]="password" type="password" placeholder="Password" />
+
+  <!-- EXTRA FIELD (IMPORTANT 🔥) -->
+  <input *ngIf="!isLogin" [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" />
+
+  <button (click)="submit()">
+    {{ isLogin ? 'Login' : 'Sign Up' }}
+  </button>
+
+  <p class="switch">
+    {{ isLogin ? 'New user?' : 'Already have an account?' }}
+    <span (click)="toggleMode()">
+      {{ isLogin ? 'Create account' : 'Login' }}
+    </span>
+  </p>
+
+</div>
+</div>
