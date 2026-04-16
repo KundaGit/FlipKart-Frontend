@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-checkout',
@@ -12,161 +13,182 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './checkout.component.css',
 })
 export class CheckoutComponent {
+
   items: any[] = [];
+
   form: any = {
     payment: 'ONLINE',
     name: '',
     address: '',
     phone: '',
   };
+
   addresses: any[] = [];
-  selectedAddress: any= null;
-  deliveryAddress: any = null;
-  constructor(private CartService: CartService,private http: HttpClient) {}
+  selectedAddress: any = null;
+
+  constructor(
+    private CartService: CartService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.items = this.CartService.getCart();
-    console.log('checkout items', this.items);
-    this.loadAddress(); // 🏠 load address on init
+    this.loadAddress();
   }
 
-  // added for address display in checkout
-//   loadAddress() {
-//   const userId = localStorage.getItem('userId');
+  // 📦 Load Address
+  loadAddress() {
+    const userId = localStorage.getItem('userId');
 
-//   this.http.get<any[]>(`http://localhost:5000/api/address/${userId}`)
-//     .subscribe(res => {
-//       this.addresses = res;
-//       if (res.length > 0) {
-//         this.selectedAddress = res[0]; // 👈 first address
-//       }
-//     });
-// }
+    this.http.get<any[]>(`http://localhost:5000/api/address/${userId}`)
+      .subscribe(res => {
+        this.addresses = res;
 
-loadAddress() {
-  const userId = localStorage.getItem('userId');
+        if (res.length > 0) {
+          const defaultAddr = res.find(a => a.isDefault);
+          this.selectedAddress = defaultAddr || res[0];
 
-  this.http.get<any[]>(`http://localhost:5000/api/address/${userId}`)
-    .subscribe(res => {
-      this.addresses = res;
+          this.setFormData(this.selectedAddress);
+        }
+      });
+  }
 
-      if (res.length > 0) {
-        const defaultAddr = res.find(a => a.isDefault);
-        this.selectedAddress = defaultAddr || res[0];
+  // 🧠 Set form data
+  setFormData(addr: any) {
+    this.form.name = addr?.name || '';
+    this.form.phone = addr?.mobile || '';
+    this.form.address =
+      `${addr?.address}, ${addr?.city}, ${addr?.state} - ${addr?.pincode}`;
+  }
 
-        // ✅ SAFE ACCESS (optional chaining)
-        this.form.name = this.selectedAddress?.name || '';
-        this.form.phone = this.selectedAddress?.mobile || '';
-        this.form.address =
-          `${this.selectedAddress?.address}, ${this.selectedAddress?.city}, ${this.selectedAddress?.state} - ${this.selectedAddress?.pincode}`;
-      }
-    });
-}
-// radio select
-onAddressChange(addr: any) {
-  this.selectedAddress = addr;
+  // 🚀 Select Address
+  selectAddress(addr: any) {
+    this.selectedAddress = addr;
+    this.setFormData(addr);
+  }
 
-  this.form.name = addr.name;
-  this.form.phone = addr.mobile;
-  this.form.address =
-    `${addr.address}, ${addr.city}, ${addr.state} - ${addr.pincode}`;
-}
+  // ✏️ Edit redirect
+  goToEdit(addr: any) {
+    localStorage.setItem("editAddress", JSON.stringify(addr));
+    window.location.href = "/address";
+  }
 
-// redirect to add address page
-// 🚀 select address
-selectAddress(addr: any) {
-  this.selectedAddress = addr;
+  // ➕ Add redirect
+  goToAdd() {
+    localStorage.removeItem("editAddress");
+    window.location.href = "/address";
+  }
 
-  this.form.name = addr.name;
-  this.form.phone = addr.mobile;
-  this.form.address =
-    `${addr.address}, ${addr.city}, ${addr.state} - ${addr.pincode}`;
-}
-
-
-// ✏️ edit redirect
-goToEdit(addr: any) {
-  localStorage.setItem("editAddress", JSON.stringify(addr));
-  window.location.href = "/address";
-}
-
-
-// ➕ add redirect
-goToAdd() {
-  localStorage.removeItem("editAddress");
-  window.location.href = "/address";
-}
-
+  // 💰 Total
   getTotal() {
     return this.items.reduce((sum, item) => {
       return sum + item.price * (item.qty || 1);
     }, 0);
   }
-  placeOrder() {
-    if (this.form.name || this.form.address) {
+
+  getMRP() {
+    return this.items.reduce((sum, item) => {
+      return sum + (item.originalPrice || item.price) * (item.qty || 1);
+    }, 0);
+  }
+
+  getDiscount() {
+    return this.getMRP() - this.getTotal();
+  }
+
+  // 🧾 Place Order (COD)
+ placeOrder() {
+
+  if (!this.form.name || !this.form.address) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Missing Info',
+      text: 'Please select delivery address!',
+    });
+    return;
+  }
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Order Placed 🎉',
+    text: 'Order placed successfully!',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#2874f0'
+  }).then((result) => {
+
+    if (result.isConfirmed) {
       localStorage.removeItem('cart');
+      this.items = [];
+      window.location.href = '/';
+    }
+
+  });
+}
+  // 💳 Continue
+  onContinue() {
+    if (this.form.payment === 'ONLINE') {
+      this.payNow();
+    } else {
+      this.placeOrder();
+    }
+  }
+
+  // 💳 Razorpay
+  payNow() {
+
+    if (!this.form.name || !this.form.address) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Info',
+        text: 'Please select delivery address!',
+      });
       return;
     }
-    alert('Order placed successfully!');
-    //  clear cart
-    localStorage.removeItem('cart');
-    window.location.href = '/';
-  }
 
-  //
-  onContinue() {
-    console.log('Selected Payment:', this.form.payment);
+    // 🔄 Loading
+    Swal.fire({
+      title: 'Processing...',
+      text: 'Please wait',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
-    if (this.form.payment === 'ONLINE') {
-      this.payNow(); // 💳 Razorpay
-    } else {
-      this.placeOrder(); // 🧾 COD
-    }
-  }
-
-  // razorpay integration
-
-  payNow() {
-    console.log('🔥 PAY NOW TRIGGERED');
-    // 🔥 STEP 1: backend se order create
     fetch('http://localhost:5000/api/payment/create-order', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        amount: this.getTotal(),
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: this.getTotal() }),
     })
-      .then((res) => res.json())
-      .then((order) => {
-        // 🔥 STEP 2: Razorpay open
+      .then(res => res.json())
+      .then(order => {
+
+        Swal.close(); // close loader
+
         const options: any = {
-          key: 'rzp_test_SOcymByDl314IL', // 🔥 apna key_id
+          key: 'rzp_test_SOcymByDl314IL',
           amount: order.amount,
           currency: order.currency,
           name: 'Kundan ShopWare',
           description: 'Order Payment',
-          order_id: order.id, // 🔥 VERY IMPORTANT
+          order_id: order.id,
 
           handler: (response: any) => {
-            // 🔥 STEP 3: verify payment
+
             fetch('http://localhost:5000/api/payment/verify', {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(response),
             })
-              .then((res) => res.json())
-              .then((data) => {
+              .then(res => res.json())
+              .then(data => {
+
                 if (data.success) {
-                  // 🔥 ORDER SAVE API
+
+                  // Save order
                   fetch('http://localhost:5000/api/orders', {
                     method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                       name: this.form.name,
                       phone: this.form.phone,
@@ -176,15 +198,24 @@ goToAdd() {
                       items: this.items,
                     }),
                   });
-                  console.log("Order saved:", order);
 
-                  alert('Order Received ✅🎉');
+                Swal.fire({
+  icon: 'success',
+  title: 'Payment Successful 🎉',
+  text: 'Order placed successfully!',
+  confirmButtonText: 'OK',
+  confirmButtonColor: '#2874f0'
+}).then((result) => {
 
-                  localStorage.removeItem('cart');
-                  this.items = [];
+  if (result.isConfirmed) {
+    localStorage.removeItem('cart');
+    this.items = [];
+    window.location.href = '/';
+  }
 
-                  window.location.href = '/';
+});
                 }
+
               });
           },
 
@@ -193,22 +224,11 @@ goToAdd() {
             contact: this.form.phone,
           },
 
-          theme: {
-            color: '#2874f0',
-          },
+          theme: { color: '#2874f0' },
         };
 
         const rzp = new (window as any).Razorpay(options);
         rzp.open();
       });
-  }
-
-  getMRP() {
-    return this.items.reduce((sum, item) => {
-      return sum + (item.originalPrice || item.price) * (item.qty || 1);
-    }, 0);
-  }
-  getDiscount() {
-    return this.getMRP() - this.getTotal();
   }
 }

@@ -4,6 +4,7 @@ import { HomeComponent } from "./pages/home/home.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { SearchService } from './services/search.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -44,11 +45,43 @@ userEmail: any = localStorage.getItem('userEmail');
 goToLogin() {
   this.router.navigate(['/login']);
 }
-logout(){
-  localStorage.clear();
-  this.userName=null;
-  this.router.navigate(['/']);
-  alert("Logged out successfully ✅");
+
+// logout
+logout() {
+  Swal.fire({
+    title: 'Logout?',
+    text: 'Are you sure you want to logout?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Logout 🚪',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#ff3d00',
+    cancelButtonColor: '#2874f0'
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      // 🔄 Loader (short time)
+      Swal.fire({
+        title: 'Logging out...',
+        text: 'Please wait',
+        allowOutsideClick: false,
+        timer: 3000, // 👈 short rakho
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      setTimeout(() => {
+        localStorage.clear();
+        this.userName = null;
+
+        this.router.navigate(['/']);
+      }, 3000);
+
+    }
+
+  });
 }
  @HostListener('document:click', ['$event'])
   clickOutside(event: any) {
@@ -56,6 +89,15 @@ logout(){
       this.isDropdownOpen = false;
     }
   }
+  // ✅ NEW (login ke baad UI update)
+@HostListener('window:userChanged')
+onUserChange() {
+  this.loadUser(); // 🔥 navbar update
+}
+loadUser() {
+  this.userName = localStorage.getItem('userName');
+}
+
 
 toggleDropdown(){
   this.isDropdownOpen=!this.isDropdownOpen;

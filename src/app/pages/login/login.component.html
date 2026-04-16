@@ -19,10 +19,38 @@
 
   <input [(ngModel)]="email" placeholder="Email Address" />
 
-  <input [(ngModel)]="password" type="password" placeholder="Password" />
+ <!-- PASSWORD -->
+<div class="input-box">
 
+  <input 
+    [(ngModel)]="password" 
+    [type]="showPassword ? 'text' : 'password'" 
+    placeholder="Password" 
+  />
+
+  <i 
+    class="fa-solid"
+    [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+    (click)="showPassword = !showPassword"
+  ></i>
+
+</div>
   <!-- EXTRA FIELD (IMPORTANT 🔥) -->
-  <input *ngIf="!isLogin" [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" />
+<div class="input-box" *ngIf="!isLogin">
+
+  <input 
+    [(ngModel)]="confirmPassword" 
+    [type]="showConfirmPassword ? 'text' : 'password'" 
+    placeholder="Confirm Password" 
+  />
+
+  <i 
+    class="fa-solid"
+    [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
+    (click)="showConfirmPassword = !showConfirmPassword"
+  ></i>
+
+</div>
 
   <button (click)="submit()">
     {{ isLogin ? 'Login' : 'Sign Up' }}
