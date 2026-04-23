@@ -1,43 +1,91 @@
 <div *ngIf="items.length === 0" class="empty-cart">
   <h2>My Cart 🛒</h2>
-
-  <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="empty">
-
+  <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" />
   <h3>Your cart is empty!</h3>
-  <p>Add items to it now</p>
-
   <button routerLink="/">Shop Now</button>
 </div>
 
-<!-- ✅ CART ITEMS -->
-<div *ngIf="items.length > 0">
+<div *ngIf="items.length > 0" class="cart-wrapper">
 
-  <div *ngFor="let item of items; let i = index" class="cart-item">
+  <h2 class="cart-title">🛒 My Cart <span>{{ items.length }} items</span></h2>
 
-    <img [src]="item.image" width="100" />
+  <!-- DESKTOP TABLE -->
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Product Name</th>
+        <th>Product Image</th>
+        <!-- <th>Description</th> -->
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td class="product-name">{{ item.description }}</td>
+        <td><img [src]="item.image"  /></td>
+        <!-- <td class="desc-cell">{{ item.description }}</td> -->
+        <td class="price-cell">₹ {{ item.price }}</td>
+        <td>
+          <div class="qty-control">
+            <button (click)="decreaseQty(i)">−</button>
+            <span>{{ item.qty }}</span>
+            <button (click)="increaseQty(i)">+</button>
+          </div>
+        </td>
+        <td class="total-cell">₹ {{ item.price * item.qty }}</td>
+        <td>
+          <button class="delete-btn" (click)="removeItem(i)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div>
-      <p>{{item.name}}</p>
-      <p>₹ {{item.price}}</p>
-
-      <div>
-        <button class="qty-btn" (click)="decreaseQty(i)">-</button>
-        <span>{{item.qty}}</span>
-        <button class="qty-btn" (click)="increaseQty(i)">+</button>
+  <!-- MOBILE CARDS -->
+  <div class="mobile-cards">
+    <div class="cart-card" *ngFor="let item of items; let i = index">
+      <img [src]="item.image" alt="{{ item.title }}" />
+      <div class="card-info">
+        <p class="card-name">{{ item.title }}</p>
+        <p class="card-desc">{{ item.description | slice:0:80 }}...</p>
+        <p class="card-price">₹ {{ item.price }}</p>
+        <div class="card-bottom">
+          <div class="qty-control">
+            <button (click)="decreaseQty(i)">−</button>
+            <span>{{ item.qty }}</span>
+            <button (click)="increaseQty(i)">+</button>
+          </div>
+          <p class="card-total">Total: <strong>₹ {{ item.price * item.qty }}</strong></p>
+          <button class="delete-btn" (click)="removeItem(i)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
       </div>
-
-      <button class="remove-btn" (click)="removeItem(i)">
-        🗑 Remove
-      </button>
     </div>
-
   </div>
 
-  <!-- 💰 TOTAL + CHECKOUT -->
-  <h3>Total: ₹ {{getTotal()}}</h3>
+  <!-- FOOTER -->
+  <div class="cart-footer">
+    <div class="cart-actions">
+      <button class="empty-btn" (click)="clearCart()">
+        <i class="fas fa-times"></i> Empty Cart
+      </button>
+      <button class="shop-btn" routerLink="/">
+        <i class="fas fa-shopping-bag"></i> Shop More
+      </button>
+      <button class="checkout-btn" routerLink="/checkout">
+        <i class="fas fa-credit-card"></i> Checkout
+      </button>
+    </div>
+    <div class="grand-total">
+      Grand Total : <strong>₹ {{ getTotal() }}</strong>
+    </div>
+  </div>
 
-  <button routerLink="/checkout" class="checkout-btn">
-    Proceed to Checkout 💳
-  </button>
-
-</div> 
+</div>

@@ -32,12 +32,16 @@ decreaseQty(i: number) {
   }
   localStorage.setItem('cart', JSON.stringify(this.items));
 }
-  getTotal() {
-    return this.items.reduce((sum, item) => sum + item.price, 0);
-  }
+getTotal() {
+  return this.items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+}
 
   removeItem(index: number) {
     this.items.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(this.items));
   }
+  clearCart() {
+  this.items = [];
+  localStorage.removeItem('cart'); // ya clear() bhi use kar sakta hai
+}
 }

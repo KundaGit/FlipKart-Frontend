@@ -7,6 +7,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderHistoryComponent } from './pages/order-history/order-history.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AddressComponent } from './pages/address/address.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 export const routes: Routes = [
  { path: '', component: HomeComponent }  ,
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path:'checkout',component:CheckoutComponent},
     {path:'orders',component:OrderHistoryComponent},
     {path:'profile',component:ProfileComponent},
-    {path:'address', component:AddressComponent}
+    {path:'address', component:AddressComponent},
+    {path:'payment',component:PaymentComponent}
 ];

@@ -1,99 +1,199 @@
-
-
+<!-- NAVBAR -->
 <div class="navbar">
-<!-- Row 1 -->
+
+  <!-- LOGO -->
   <div class="logo" routerLink="/">
-  <img src="https://static.vecteezy.com/system/resources/thumbnails/054/650/802/small_2x/flipkart-logo-rounded-flipkart-logo-free-download-flipkart-logo-free-png.png" alt="Flipkart Logo" />
-  <div class="logo-text">
-    Kundan SK
-    <span class="plus">Explore <b>Plus</b> ✨</span>
+    <img src="https://static.vecteezy.com/system/resources/thumbnails/054/650/802/small_2x/flipkart-logo-rounded-flipkart-logo-free-download-flipkart-logo-free-png.png" />
+    <div class="logo-text">
+      Kundan SK
+      <span class="plus">Explore <b>Plus</b> ✨</span>
+    </div>
   </div>
-</div>
+
   <!-- SEARCH -->
- 
   <div class="search-container">
-  <input type="text" placeholder="Search for Products, brands and more Samastipur" [(ngModel)]="searchText"(input)="onSearch()" />
-  <button>Search</button>
-</div>
+    <input type="text"
+           placeholder="Search for Products, brands and more"
+           [(ngModel)]="searchText"
+           (input)="onSearch()" />
+    <button>Search</button>
+  </div>
 
-  <!-- RIGHT MENU -->
- <div class="nav-right">
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
 
-  <!-- LOGIN -->
-  <button *ngIf="!userName" class="login-btn" (click)="goToLogin()">
-    Login
-  </button>
+    <!-- LOGIN -->
+    <button *ngIf="!userName"
+            class="login-btn"
+            (click)="goToLogin()">
+      Login
+    </button>
 
-  <!-- AVATAR + NAME -->
-  <div *ngIf="userName" class="account-section" (click)="toggleDropdown()">
+    <!-- USER SECTION -->
+    <div *ngIf="userName"
+         class="account-section"
+         (click)="toggleDropdown(); $event.stopPropagation()">
 
-    <div class="avatar">
-      {{ userName.charAt(0).toUpperCase() }}
+      <div class="avatar">
+        {{ userName.charAt(0).toUpperCase() }}
+      </div>
+
+      <span class="username">Hello, {{ userName }}</span>
+
+      <i class="fas fa-chevron-down"></i>
+
+      <!-- DROPDOWN -->
+      <div class="dropdown" *ngIf="isDropdownOpen">
+
+        <!-- HEADER -->
+        <div class="dropdown-header">
+          <div class="avatar">
+            {{ userName.charAt(0).toUpperCase() }}
+          </div>
+          <div>
+            <h4>{{ userName }}</h4>
+            <p>{{ userEmail }}</p>
+          </div>
+        </div>
+
+        <!-- ITEMS -->
+        <div class="dropdown-item" routerLink="/profile" (click)="isDropdownOpen=false">
+          <i class="fas fa-user"></i> My Profile
+        </div>
+
+        <div class="dropdown-item" routerLink="/orders" (click)="isDropdownOpen=false">
+          <i class="fas fa-box"></i> Orders
+        </div>
+
+        <div class="dropdown-item">
+          <i class="fas fa-heart"></i> Wishlist
+        </div>
+
+        <div class="dropdown-item" routerLink="/address" (click)="isDropdownOpen=false">
+          <i class="fas fa-map-marker-alt"></i> Addresses
+        </div>
+
+        <div class="dropdown-item" routerLink="/payment" (click)="isDropdownOpen=false">
+          <i class="fas fa-credit-card"></i> Payments
+        </div>
+
+        <hr>
+
+        <div class="dropdown-item logout" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </div>
+
+      </div>
     </div>
 
-    <span class="username">Hello, {{ userName }}</span>
-
-    <i class="fas fa-chevron-down"></i>
-
-    <!-- DROPDOWN -->
-  <div class="dropdown" *ngIf="isDropdownOpen">
-
-  <!-- 🔥 HEADER ADD HERE -->
-  <div class="dropdown-header">
-    <div class="avatar">
-      {{ userName.charAt(0).toUpperCase() }}
+    <!-- ORDERS -->
+    <div class="nav-item" routerLink="/orders">
+      My Orders
     </div>
-    <div>
-      <h4>{{ userName }}</h4>
-      <p>{{ userEmail }}</p>
+
+    <!-- CART -->
+    <div class="cart" (click)="goToCart()">
+      <i class="fas fa-cart-plus"></i>
+      <span>Cart</span>
+      <span class="cart-count">{{ getCartCount() }}</span>
+    </div>
+
+    <!-- LOGOUT BUTTON -->
+    <button *ngIf="userName"
+            class="logout-btn"
+            (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+</div>
+
+<!-- OVERLAY (for dropdown close) -->
+<div *ngIf="isDropdownOpen"
+     class="overlay"
+     (click)="isDropdownOpen=false">
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+  <!-- TRUST -->
+  <div class="footer-trust">
+    <div class="trust-item">
+      <i class="fas fa-shield-alt"></i>
+      <span>100% Secure Payment</span>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-truck"></i>
+      <span>Free Delivery</span>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-undo"></i>
+      <span>Easy Returns</span>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-headset"></i>
+      <span>24/7 Support</span>
     </div>
   </div>
 
-  <!-- MENU ITEMS -->
-  <div class="dropdown-item" routerLink="/profile">
-    <i class="fas fa-user"></i> My Profile
+  <!-- LINKS -->
+  <div class="footer-main">
+
+    <div class="footer-col">
+      <h4>ABOUT</h4>
+      <p>Contact Us</p>
+      <p>About Us</p>
+      <p>Careers</p>
+      <p>Press</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>HELP</h4>
+      <p>Payments</p>
+      <p>Shipping</p>
+      <p>Cancellation & Returns</p>
+      <p>FAQ</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>POLICY</h4>
+      <p>Return Policy</p>
+      <p>Terms of Use</p>
+      <p>Privacy</p>
+      <p>Security</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>SOCIAL</h4>
+      <p>Facebook</p>
+      <p>Instagram</p>
+      <p>YouTube</p>
+      <p>Twitter / X</p>
+    </div>
+
   </div>
 
-  <div class="dropdown-item" routerLink="/orders">
-    <i class="fas fa-box"></i> Orders
-  </div>
-  <div class="dropdown-item">
-  <i class="fas fa-heart"></i> Wishlist
-</div>
-
-<div class="dropdown-item" routerLink="/address">
-  
-  <i class="fas fa-map-marker-alt"></i> Addresses
-</div>
-
-<div class="dropdown-item">
-  <i class="fas fa-credit-card"></i> Payments
-</div>
-
-<hr>
-
-  <div class="dropdown-item logout" (click)="logout()">
-    <i class="fas fa-sign-out-alt"></i> Logout
+  <!-- PAYMENT -->
+  <div class="footer-payment">
+    <span>We Accept:</span>
+    <div class="payment-icons">
+      <img src="https://img.icons8.com/color/48/visa.png" />
+      <img src="https://img.icons8.com/color/48/mastercard.png" />
+      <img src="https://img.icons8.com/color/48/rupay.png" />
+      <img src="https://img.icons8.com/color/48/google-pay.png" />
+      <img src="https://img.icons8.com/color/48/upi.png" />
+    </div>
   </div>
 
-</div>
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    © 2026 Kundan SK | Made with ❤️ in India
   </div>
 
-  <!-- ALWAYS VISIBLE ITEMS -->
-  <div class="nav-item" routerLink="/orders">My Orders</div>
-
-  <div class="cart" (click)="goToCart()">
-    <i class="fas fa-cart-plus"></i>
-    <span>Cart</span>
-    <span class="cart-count">{{ getCartCount() }}</span>
-  </div>
-
-  <button *ngIf="userName" class="logout-btn" (click)="logout()">
-    Logout
-  </button>
-
-</div>
-
-</div>
-
-<router-outlet></router-outlet>
+</footer>

@@ -1,4 +1,3 @@
-import { routes } from './../../app.routes';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -39,7 +38,7 @@ ngOnInit() {
     this.showCartPopup = true;
 
     setTimeout(() => {
-      this.showCartPopup = true;
+      this.showCartPopup = false;
     }, 3000);
   });
   }

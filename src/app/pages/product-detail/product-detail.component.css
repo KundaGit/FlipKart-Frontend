@@ -160,14 +160,16 @@ button {
   }
 }
 /* Dark background */
+/* CSS mein ye replace karo */
 .cart-popup::before {
   content: '';
   position: fixed;
   top: 0;
-  left: -100vw;
+  left: 0;        /* -100vw ki jagah 0 */
   width: 100vw;
   height: 100vh;
   background: rgba(0,0,0,0.3);
+  z-index: -1;    /* popup ke peeche rakho */
 }
 
 
@@ -320,3 +322,119 @@ button {
   }
 
 }
+
+body {
+  background: linear-gradient(to right, #eef2f7, #f9fbfd);
+}
+.detail-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.img-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.img-container img {
+  transition: transform 0.3s ease;
+}
+
+.img-container:hover img {
+  transform: scale(1.05);
+}
+
+.price {
+  font-size: 26px;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 10px;
+}
+
+.discount {
+  color: #2e7d32;
+  margin-left: 10px;
+  font-weight: 600;
+}
+.rating {
+  background: #388e3c;
+  color: white;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.buy-btn {
+  background: linear-gradient(135deg, #ff9f00, #ff7a00);
+}
+
+@media (max-width: 768px) {
+
+  .detail-container {
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .left, .right {
+    width: 100%;
+  }
+
+}
+
+/* text cleaner */
+@media (max-width: 768px) {
+
+  .right {
+    text-align: center;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .price {
+    font-size: 20px;
+  }
+
+  .rating {
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .zoom-preview,
+  .lens {
+    display: none;
+  }
+}
+

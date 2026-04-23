@@ -1,0 +1,43 @@
+<div class="payment-container">
+
+  <h2>Select Payment Method</h2>
+
+  <div class="payment-box">
+
+    <!-- UPI -->
+    <div class="option" (click)="selectMethod('upi')">
+      <input type="radio" name="payment" checked />
+      <span>UPI (Google Pay / PhonePe)</span>
+    </div>
+
+    <div *ngIf="method === 'upi'" class="details">
+      <input type="text" placeholder="Enter UPI ID (example@upi)" [(ngModel)]="upiId" />
+    </div>
+
+    <!-- CARD -->
+    <div class="option" (click)="selectMethod('card')">
+      <input type="radio" name="payment" />
+      <span>Credit / Debit Card</span>
+    </div>
+
+    <div *ngIf="method === 'card'" class="details">
+      <input type="text" placeholder="Card Number" [(ngModel)]="card.number" />
+      <input type="text" placeholder="Expiry (MM/YY)" [(ngModel)]="card.expiry" />
+      <input type="text" placeholder="CVV" [(ngModel)]="card.cvv" />
+    </div>
+
+    <!-- COD -->
+    <div class="option" (click)="selectMethod('cod')">
+      <input type="radio" name="payment" />
+      <span>Cash on Delivery</span>
+    </div>
+
+  </div>
+
+  <!-- TOTAL -->
+  <div class="summary">
+    <h3>Total: ₹ {{total}}</h3>
+    <button (click)="placeOrder()">Place Order 🚀</button>
+  </div>
+
+</div>
