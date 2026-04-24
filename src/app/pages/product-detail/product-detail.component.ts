@@ -37,9 +37,6 @@ ngOnInit() {
     this.popupProduct = product;
     this.showCartPopup = true;
 
-    setTimeout(() => {
-      this.showCartPopup = false;
-    }, 3000);
   });
   }
 
